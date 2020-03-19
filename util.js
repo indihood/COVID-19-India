@@ -69,6 +69,9 @@ function parseCsv(data) {
     var line = numbers[j];
     var entries = line.split(",");
     var date = entries[0];
+    if (!date.length) {
+      continue;
+    }
     var stateEntries = entries.slice(1);
     allDays[date] = {};
     for (var i = 0; i < stateEntries.length; i++) {
@@ -85,6 +88,7 @@ function parseCsv(data) {
 function plotMap(regionalData) {
   // TODO(rahul): get rid of this hack. Find polygons for Ladakh from https://www.gadm.org/download_country_v3.html.
   regionalData["Jammu & Kashmir"] += regionalData["Ladakh"];
+  regionalData["Ladakh"] = 0;
 
   var bubbles = [];
   for (var name in state_id_map) {
